@@ -1,13 +1,18 @@
 package com.example.exampleapplication.di.module
 
+import com.example.exampleapplication.data.database.dao.PersonDao
+import com.example.exampleapplication.data.repository.PersonRepository
+import com.example.exampleapplication.data.repository.Repository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [DataSourceModule::class])
 class RepositoryModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideLocalDataSource() : LocalDataSource
+    @Provides
+    @Singleton
+    fun providePersonRepository(personDao: PersonDao) : Repository {
+        return PersonRepository(personDao)
+    }
 }
