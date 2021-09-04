@@ -1,6 +1,6 @@
 package com.example.exampleapplication.di.component
 
-import com.example.exampleapplication.MainActivity
+import com.example.exampleapplication.presentation.activity.MainActivity
 import com.example.exampleapplication.di.module.DataSourceModule
 import com.example.exampleapplication.di.module.RepositoryModule
 import dagger.Component
