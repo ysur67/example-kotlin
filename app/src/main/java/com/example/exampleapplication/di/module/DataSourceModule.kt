@@ -2,7 +2,6 @@ package com.example.exampleapplication.di.module
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.exampleapplication.data.database.AppDatabase
 import com.example.exampleapplication.data.database.dao.PersonDao
 import com.example.exampleapplication.data.remote.RemoteDataSource
@@ -13,7 +12,6 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module(includes = [AppModule::class])
@@ -26,7 +24,7 @@ class DataSourceModule {
             app,
             AppDatabase::class.java,
             "post-database"
-        ).fallbackToDestructiveMigration().build()
+        ).build()
     }
 
     @Provides
