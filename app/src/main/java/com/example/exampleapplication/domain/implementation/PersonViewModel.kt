@@ -20,6 +20,12 @@ class PersonViewModel @Inject constructor(
             .map { updatePersons(it) }
     }
 
+    fun updatePersons() {
+        repository.updatePersons().doOnNext {
+            updatePersons(it)
+        }
+    }
+
     private fun updatePersons(new: List<Person>) {
         var currentValue = _persons.value
         if (currentValue == null) {
@@ -31,5 +37,4 @@ class PersonViewModel @Inject constructor(
         }
         _persons.postValue(currentValue)
     }
-
 }
