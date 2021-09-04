@@ -1,16 +1,9 @@
 package com.example.exampleapplication.data.model.person
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
-    tableName = "persons",
-    foreignKeys = [
-        ForeignKey(entity = Address::class, parentColumns = ["id"], childColumns = ["address_id"]),
-        ForeignKey(entity = Company::class, parentColumns = ["id"], childColumns = ["company_id"])
-    ]
+    tableName = "persons"
 )
 data class Person(
     @PrimaryKey val id: Int,
@@ -19,6 +12,6 @@ data class Person(
     val email: String,
     val phone: String,
     val website: String,
-    val address_id: Int,
-    val company_id: Int
+    @Embedded val address: Address?,
+    @Embedded val company: Company?
 )

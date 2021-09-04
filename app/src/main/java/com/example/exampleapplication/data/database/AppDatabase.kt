@@ -1,5 +1,6 @@
 package com.example.exampleapplication.data.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.exampleapplication.data.database.dao.PersonDao
@@ -10,8 +11,8 @@ import com.example.exampleapplication.data.model.person.Company
 import com.example.exampleapplication.data.model.person.Person
 
 @Database(
-    entities = [Person::class, Post::class, Address::class, Company::class],
-    version = 1
+    entities = [Person::class, Post::class],
+    version = 4
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun personDao() : PersonDao
