@@ -45,6 +45,8 @@ dependencies {
     kapt("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0")
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
 
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation "io.reactivex.rxjava3:rxjava:3.0.13"
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     // optional - RxJava2 support for Room
