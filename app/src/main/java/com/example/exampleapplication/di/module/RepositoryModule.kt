@@ -2,7 +2,7 @@ package com.example.exampleapplication.di.module
 
 import com.example.exampleapplication.data.database.dao.PersonDao
 import com.example.exampleapplication.data.repository.PersonRepository
-import com.example.exampleapplication.data.repository.Repository
+import com.example.exampleapplication.data.repository.PersonRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,7 +12,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePersonRepository(personDao: PersonDao) : Repository {
-        return PersonRepository(personDao)
+    fun providePersonRepository(personDao: PersonDao) : PersonRepository {
+        return PersonRepositoryImpl(personDao)
     }
 }
