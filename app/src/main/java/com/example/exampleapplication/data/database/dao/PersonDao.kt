@@ -17,8 +17,8 @@ interface PersonDao {
     fun loadAllByIds(personIds: IntArray) : Flowable<List<Person>>
 
     @Insert
-    fun insertAll(vararg persons: Person)
+    suspend fun insertAll(vararg persons: Person)
 
     @Delete
-    fun delete(person: Person)
+    suspend fun delete(person: Person)
 }

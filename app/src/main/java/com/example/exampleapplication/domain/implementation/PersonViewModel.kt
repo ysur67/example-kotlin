@@ -8,7 +8,7 @@ import com.example.exampleapplication.domain.BaseViewModel
 import javax.inject.Inject
 
 class PersonViewModel @Inject constructor(
-    val repository: PersonRepository
+    private val repository: PersonRepository
 ) : BaseViewModel() {
 
     private val _persons = MutableLiveData<ArrayList<Person>>(null)
