@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.example.exampleapplication.data.database.AppDatabase
 import com.example.exampleapplication.data.database.dao.PersonDao
+import com.example.exampleapplication.data.database.dao.PostDao
 import com.example.exampleapplication.data.remote.RemoteDataSource
 import com.example.exampleapplication.data.remote.RetrofitServices
 import com.example.exampleapplication.data.remote.implementation.RemoteDataSourceImpl
@@ -31,6 +32,12 @@ class DataSourceModule {
     @Singleton
     fun providePersonDao(database: AppDatabase) : PersonDao {
         return database.personDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providePostDao(database: AppDatabase) : PostDao {
+        return database.postDao()
     }
 
     @Provides

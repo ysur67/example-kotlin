@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         (application as ExampleApp).appComponent.inject(this)
         setContentView(R.layout.activity_main)
-        viewModel.updatePersons()
+//        viewModel.updatePersons()
+        viewModel.updatePosts()
     }
 }
