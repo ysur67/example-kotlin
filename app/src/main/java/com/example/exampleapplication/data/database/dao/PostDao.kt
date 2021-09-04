@@ -5,12 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.exampleapplication.data.model.Post
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.Flowable
+
 
 @Dao
 interface PostDao {
     @Query("SELECT * FROM post")
-    fun getAll() : Flow<List<Post>>
+    fun getAll() : Flowable<List<Post>>
 
     @Insert
     fun insertAll(vararg post: Post)

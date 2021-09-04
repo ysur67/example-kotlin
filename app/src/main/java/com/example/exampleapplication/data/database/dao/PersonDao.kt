@@ -5,15 +5,16 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.exampleapplication.data.model.person.Person
+import io.reactivex.Flowable
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PersonDao {
     @Query("SELECT * FROM persons")
-    fun getAll() : Flow<List<Person>>
+    fun getAll() : Flowable<List<Person>>
 
     @Query("SELECT * FROM persons WHERE id IN (:personIds)")
-    fun loadAllByIds(personIds: IntArray) : Flow<List<Person>>
+    fun loadAllByIds(personIds: IntArray) : Flowable<List<Person>>
 
     @Insert
     fun insertAll(vararg persons: Person)
