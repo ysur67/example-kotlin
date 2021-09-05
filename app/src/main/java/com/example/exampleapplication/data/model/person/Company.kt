@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 data class Company(
-    val title: String,
+    val title: String?,
     @ColumnInfo(name = "catch_phrase") val catchPhrase: String,
     val bs: String
 )

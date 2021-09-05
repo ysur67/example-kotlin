@@ -12,7 +12,7 @@ import com.example.exampleapplication.data.model.person.Person
 
 @Database(
     entities = [Person::class, Post::class],
-    version = 5
+    version = 6
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun personDao() : PersonDao
