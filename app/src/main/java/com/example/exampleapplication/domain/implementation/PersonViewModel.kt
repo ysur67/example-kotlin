@@ -28,6 +28,9 @@ class PersonViewModel @Inject constructor(
         personRepository.getPersons()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete {
+                throw it
+            }
             .subscribe{
                 updatePersonLiveData(it)
             }
@@ -37,17 +40,36 @@ class PersonViewModel @Inject constructor(
         postRepository.getPosts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
             .subscribe{
                 updatePostLiveData(it)
             }
     }
 
     fun updatePersons() {
-        personRepository.updatePersons().doOnNext { updatePersonLiveData(it) }
+        personRepository.updatePersons()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                updatePersonLiveData(it)
+            }
     }
 
     fun updatePosts() {
-        postRepository.updatePosts().doOnNext { updatePostLiveData(it) }
+        postRepository.updatePosts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                updatePostLiveData(it)
+            }
     }
 
     private fun updatePersonLiveData(new: List<Person>) {

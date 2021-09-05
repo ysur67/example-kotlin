@@ -1,10 +1,9 @@
 package com.example.exampleapplication.presentation.fragment
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,11 +31,16 @@ class PostListFragment : Fragment() {
 
     private lateinit var adapter: PostAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        (activity?.application as ExampleApp).appComponent.inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (activity?.application as ExampleApp).appComponent.inject(this)
         _binding = FragmentPostListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,10 +50,39 @@ class PostListFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = PostAdapter(viewModel.posts.value ?: ArrayList())
         binding.recyclerView.adapter = adapter
+        viewModel.loadPosts()
         viewModel.posts.observe(viewLifecycleOwner, {
-            if (it == null) return@observe
-            adapter.add(it as List<Post>)
+            if (it == null || it.size == 0) {
+                togglePostList(false)
+            } else {
+                togglePostList(true)
+                adapter.add(it as List<Post>)
+            }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.update_options_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.optionUpdate -> {
+                viewModel.updatePosts()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun togglePostList(postListHasItems: Boolean) {
+        if (postListHasItems) {
+            binding.recyclerView.isEnabled = false
+            binding.postListEmpty.visibility = View.VISIBLE
+        } else {
+            binding.recyclerView.isEnabled = true
+            binding.postListEmpty.visibility = View.GONE
+        }
     }
 
     companion object {
