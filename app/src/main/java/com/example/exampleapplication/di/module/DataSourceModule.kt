@@ -25,7 +25,7 @@ class DataSourceModule {
             app,
             AppDatabase::class.java,
             "post-database"
-        ).fallbackToDestructiveMigration().build()
+        ).build()
     }
 
     @Provides
