@@ -4,7 +4,7 @@ import com.example.exampleapplication.data.database.dao.PersonDao
 import com.example.exampleapplication.data.model.person.Person
 import com.example.exampleapplication.data.remote.RemoteDataSource
 import com.example.exampleapplication.data.repository.PersonRepository
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Response

@@ -2,8 +2,7 @@ package com.example.exampleapplication.data.database.dao
 
 import androidx.room.*
 import com.example.exampleapplication.data.model.person.Person
-import io.reactivex.Flowable
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Flowable
 
 @Dao
 interface PersonDao {

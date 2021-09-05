@@ -5,13 +5,13 @@ import com.example.exampleapplication.data.database.dao.PostDao
 import com.example.exampleapplication.data.model.Post
 import com.example.exampleapplication.data.remote.RemoteDataSource
 import com.example.exampleapplication.data.repository.PostRepository
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
+
 
 class PostRepositoryImpl @Inject constructor(
     private val localDataSource: PostDao,

@@ -7,6 +7,8 @@ import com.example.exampleapplication.data.model.person.Person
 import com.example.exampleapplication.data.repository.PersonRepository
 import com.example.exampleapplication.data.repository.PostRepository
 import com.example.exampleapplication.domain.BaseViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class PersonViewModel @Inject constructor(
@@ -18,9 +20,26 @@ class PersonViewModel @Inject constructor(
     val persons: LiveData<ArrayList<Person>>
         get() = _persons
 
+    private val _posts = MutableLiveData<ArrayList<Post>>(null)
+    val posts: LiveData<ArrayList<Post>>
+        get() = _posts
+
     fun loadPersons() {
         personRepository.getPersons()
-            .map { updatePersonLiveData(it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe{
+                updatePersonLiveData(it)
+            }
+    }
+
+    fun loadPosts() {
+        postRepository.getPosts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe{
+                updatePostLiveData(it)
+            }
     }
 
     fun updatePersons() {
@@ -43,7 +62,15 @@ class PersonViewModel @Inject constructor(
         _persons.postValue(currentValue!!)
     }
 
-    private fun updatePostLiveData(it: List<Post>?) {
-//        var currentValue = _post.value
+    private fun updatePostLiveData(new: List<Post>) {
+        var currentValue = _posts.value
+        if (currentValue == null) {
+            _posts.postValue(new as ArrayList<Post>)
+            return
+        }
+        for (post in new) {
+            currentValue.add(post)
+        }
+        _posts.postValue(currentValue!!)
     }
 }

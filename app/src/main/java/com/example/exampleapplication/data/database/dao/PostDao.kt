@@ -2,7 +2,7 @@ package com.example.exampleapplication.data.database.dao
 
 import androidx.room.*
 import com.example.exampleapplication.data.model.Post
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 
 
 @Dao
