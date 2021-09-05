@@ -6,6 +6,6 @@ data class Address(
     val suite: String,
     val city: String,
     val zipcode: String,
-    val lat: String,
-    val lng: String
+    val lat: String?,
+    val lng: String?
 )
