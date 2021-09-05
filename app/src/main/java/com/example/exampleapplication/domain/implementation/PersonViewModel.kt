@@ -7,6 +7,8 @@ import com.example.exampleapplication.data.model.person.Person
 import com.example.exampleapplication.data.repository.PersonRepository
 import com.example.exampleapplication.data.repository.PostRepository
 import com.example.exampleapplication.domain.BaseViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class PersonViewModel @Inject constructor(
@@ -18,32 +20,64 @@ class PersonViewModel @Inject constructor(
     val persons: LiveData<ArrayList<Person>>
         get() = _persons
 
+    private val _posts = MutableLiveData<ArrayList<Post>>(null)
+    val posts: LiveData<ArrayList<Post>>
+        get() = _posts
+
     fun loadPersons() {
         personRepository.getPersons()
-            .map { updatePersonLiveData(it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete {
+                throw it
+            }
+            .subscribe{
+                updatePersonLiveData(it)
+            }
+    }
+
+    fun loadPosts() {
+        postRepository.getPosts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                updatePostLiveData(it)
+            }
     }
 
     fun updatePersons() {
-        personRepository.updatePersons().doOnNext { updatePersonLiveData(it) }
+        personRepository.updatePersons()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                updatePersonLiveData(it)
+            }
     }
 
     fun updatePosts() {
-        postRepository.updatePosts().doOnNext { updatePostLiveData(it) }
+        _posts.postValue(ArrayList())
+        postRepository.updatePosts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                updatePostLiveData(it)
+            }
     }
 
     private fun updatePersonLiveData(new: List<Person>) {
-        var currentValue = _persons.value
-        if (currentValue == null) {
-            _persons.postValue(new as ArrayList<Person>)
-            return
-        }
-        for (person in new) {
-            currentValue.add(person)
-        }
-        _persons.postValue(currentValue!!)
+        _persons.postValue(new as ArrayList<Person>)
     }
 
-    private fun updatePostLiveData(it: List<Post>?) {
-//        var currentValue = _post.value
+    private fun updatePostLiveData(new: List<Post>) {
+        _posts.postValue(new as ArrayList<Post>)
     }
 }

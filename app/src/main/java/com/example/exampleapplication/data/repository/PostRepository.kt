@@ -1,7 +1,7 @@
 package com.example.exampleapplication.data.repository
 
 import com.example.exampleapplication.data.model.Post
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 
 interface PostRepository {
     fun updatePosts() : Flowable<List<Post>>

@@ -4,9 +4,8 @@ import com.example.exampleapplication.data.database.dao.PersonDao
 import com.example.exampleapplication.data.model.person.Person
 import com.example.exampleapplication.data.remote.RemoteDataSource
 import com.example.exampleapplication.data.repository.PersonRepository
-import io.reactivex.Flowable
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import io.reactivex.rxjava3.core.Flowable
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
@@ -16,13 +15,15 @@ class PersonRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
     ) : PersonRepository {
 
+    private val localScope = CoroutineScope(Job() + Dispatchers.Main)
+
     private val onPersonResponseCallback = object : retrofit2.Callback<MutableList<Person>> {
         override fun onResponse(
             call: Call<MutableList<Person>>,
             response: Response<MutableList<Person>>
         ) {
             val requestResult = response.body() ?: return
-            updateLocalDatabase(requestResult)
+            updateLocalDatabase(requestResult.toTypedArray())
         }
         override fun onFailure(call: Call<MutableList<Person>>, t: Throwable) {
             throw t
@@ -38,9 +39,9 @@ class PersonRepositoryImpl @Inject constructor(
         return localDataSource.getAll()
     }
 
-    private fun updateLocalDatabase(new: MutableList<Person>) {
-        GlobalScope.launch {
-            localDataSource.insertAll(*new as Array<Person>)
+    private fun updateLocalDatabase(new: Array<Person>) {
+        localScope.launch {
+            localDataSource.insertAll(*new)
         }
     }
 }
