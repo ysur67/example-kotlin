@@ -13,7 +13,8 @@ class PostAdapter(
     ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val friendNameView: TextView = view.findViewById(R.id.postTitle)
+        val postTitleView: TextView = view.findViewById(R.id.postTitle)
+        val postIdView: TextView = view.findViewById(R.id.postId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +25,8 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = dataSet[position]
-        holder.friendNameView.text = current.title
+        holder.postTitleView.text = current.title
+        holder.postIdView.text = current.id.toString()
     }
 
     override fun getItemCount(): Int {
@@ -38,6 +40,11 @@ class PostAdapter(
 
     fun add(new: List<Post>) {
         dataSet = new as ArrayList<Post>
+        notifyDataSetChanged()
+    }
+
+    fun clearDataSet() {
+        this.dataSet = ArrayList<Post>()
         notifyDataSetChanged()
     }
 }

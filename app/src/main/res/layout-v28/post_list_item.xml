@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="20dp"
-    android:layout_marginVertical="15dp"
-    android:layout_marginHorizontal="5dp">
+    app:cardElevation="8dp" >
 
     <TextView
         android:id="@+id/postTitle"
@@ -25,7 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/post_id"
         android:paddingHorizontal="15dp"
-        android:layout_gravity="end" >
+        android:gravity="center"
+        android:layout_gravity="end">
 
     </TextView>
 

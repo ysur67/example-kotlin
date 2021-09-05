@@ -61,6 +61,7 @@ class PersonViewModel @Inject constructor(
     }
 
     fun updatePosts() {
+        _posts.postValue(ArrayList())
         postRepository.updatePosts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -73,26 +74,10 @@ class PersonViewModel @Inject constructor(
     }
 
     private fun updatePersonLiveData(new: List<Person>) {
-        var currentValue = _persons.value
-        if (currentValue == null) {
-            _persons.postValue(new as ArrayList<Person>)
-            return
-        }
-        for (person in new) {
-            currentValue.add(person)
-        }
-        _persons.postValue(currentValue!!)
+        _persons.postValue(new as ArrayList<Person>)
     }
 
     private fun updatePostLiveData(new: List<Post>) {
-        var currentValue = _posts.value
-        if (currentValue == null) {
-            _posts.postValue(new as ArrayList<Post>)
-            return
-        }
-        for (post in new) {
-            currentValue.add(post)
-        }
-        _posts.postValue(currentValue!!)
+        _posts.postValue(new as ArrayList<Post>)
     }
 }

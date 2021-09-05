@@ -25,8 +25,7 @@ class PostListFragment : Fragment() {
     private var _binding: FragmentPostListBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: PersonViewModel by activityViewModels { viewModelFactory }
 
     private lateinit var adapter: PostAdapter
@@ -52,6 +51,7 @@ class PostListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         viewModel.loadPosts()
         viewModel.posts.observe(viewLifecycleOwner, {
+            adapter.clearDataSet()
             if (it == null || it.size == 0) {
                 togglePostList(false)
             } else {
@@ -69,6 +69,7 @@ class PostListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.optionUpdate -> {
+                adapter.clearDataSet()
                 viewModel.updatePosts()
             }
         }
