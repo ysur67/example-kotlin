@@ -26,9 +26,7 @@ class PostRepositoryImpl @Inject constructor(
             response: Response<MutableList<Post>>
         ) {
             val requestResult = response.body() ?: return
-            localScope.launch {
-                updateLocalDatabase(requestResult.toTypedArray())
-            }
+            updateLocalDatabase(requestResult.toTypedArray())
         }
 
         override fun onFailure(call: Call<MutableList<Post>>, t: Throwable) {
@@ -46,8 +44,8 @@ class PostRepositoryImpl @Inject constructor(
         return localDataSource.getAll()
     }
 
-    private suspend fun updateLocalDatabase(new: Array<Post>) = coroutineScope {
-        launch {
+    private fun updateLocalDatabase(new: Array<Post>) {
+        localScope.launch {
             localDataSource.insertAll(*new)
         }
     }

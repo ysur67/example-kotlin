@@ -23,9 +23,7 @@ class PersonRepositoryImpl @Inject constructor(
             response: Response<MutableList<Person>>
         ) {
             val requestResult = response.body() ?: return
-            localScope.launch {
-                updateLocalDatabase(requestResult.toTypedArray())
-            }
+            updateLocalDatabase(requestResult.toTypedArray())
         }
         override fun onFailure(call: Call<MutableList<Person>>, t: Throwable) {
             throw t
@@ -41,8 +39,8 @@ class PersonRepositoryImpl @Inject constructor(
         return localDataSource.getAll()
     }
 
-    private suspend fun updateLocalDatabase(new: Array<Person>) = coroutineScope {
-        launch {
+    private fun updateLocalDatabase(new: Array<Person>) {
+        localScope.launch {
             localDataSource.insertAll(*new)
         }
     }
