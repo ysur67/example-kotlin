@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragment.PostListFragment">
+    tools:context=".presentation.fragment.PostListFragment" >
 
     <TextView
         android:id="@+id/postListEmpty"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="15dp">
+        android:paddingVertical="15dp" >
 
     </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

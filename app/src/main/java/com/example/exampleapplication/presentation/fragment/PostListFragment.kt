@@ -78,11 +78,11 @@ class PostListFragment : Fragment() {
 
     private fun togglePostList(postListHasItems: Boolean) {
         if (postListHasItems) {
-            binding.recyclerView.isEnabled = false
-            binding.postListEmpty.visibility = View.VISIBLE
-        } else {
             binding.recyclerView.isEnabled = true
             binding.postListEmpty.visibility = View.GONE
+        } else {
+            binding.recyclerView.isEnabled = false
+            binding.postListEmpty.visibility = View.VISIBLE
         }
     }
 
