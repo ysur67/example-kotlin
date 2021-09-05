@@ -1,8 +1,8 @@
-package com.example.exampleapplication.data.remote.implementation
+package com.example.exampleapplication.data.source.implementation
 
 import com.example.exampleapplication.data.model.Post
 import com.example.exampleapplication.data.model.person.Person
-import com.example.exampleapplication.data.remote.RemoteDataSource
+import com.example.exampleapplication.data.source.RemoteDataSource
 import com.example.exampleapplication.data.remote.RetrofitServices
 import retrofit2.Call
 import javax.inject.Inject

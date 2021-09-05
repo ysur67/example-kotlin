@@ -11,8 +11,8 @@ interface PostDao {
     fun getAll() : Flowable<List<Post>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg post: Post)
+    suspend fun insertAll(vararg post: Post)
 
     @Delete
-    fun delete(post: Post)
+    suspend fun delete(post: Post)
 }

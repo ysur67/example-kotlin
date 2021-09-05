@@ -5,9 +5,11 @@ import androidx.room.Room
 import com.example.exampleapplication.data.database.AppDatabase
 import com.example.exampleapplication.data.database.dao.PersonDao
 import com.example.exampleapplication.data.database.dao.PostDao
-import com.example.exampleapplication.data.remote.RemoteDataSource
+import com.example.exampleapplication.data.source.RemoteDataSource
 import com.example.exampleapplication.data.remote.RetrofitServices
-import com.example.exampleapplication.data.remote.implementation.RemoteDataSourceImpl
+import com.example.exampleapplication.data.source.LocalDataSource
+import com.example.exampleapplication.data.source.implementation.LocalDataSourceImpl
+import com.example.exampleapplication.data.source.implementation.RemoteDataSourceImpl
 import com.example.exampleapplication.utils.Const
 import dagger.Module
 import dagger.Provides
@@ -59,5 +61,11 @@ class DataSourceModule {
     @Singleton
     fun provideRemoteDataSource(retrofitServices: RetrofitServices) : RemoteDataSource {
         return RemoteDataSourceImpl(retrofitServices)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(personDao: PersonDao, postDao: PostDao) : LocalDataSource {
+        return LocalDataSourceImpl(personDao, postDao)
     }
 }

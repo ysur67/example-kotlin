@@ -1,10 +1,10 @@
 package com.example.exampleapplication.data.repository.implementation
 
-import android.provider.Settings
 import com.example.exampleapplication.data.database.dao.PostDao
 import com.example.exampleapplication.data.model.Post
-import com.example.exampleapplication.data.remote.RemoteDataSource
+import com.example.exampleapplication.data.source.RemoteDataSource
 import com.example.exampleapplication.data.repository.PostRepository
+import com.example.exampleapplication.data.source.LocalDataSource
 import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -14,12 +14,9 @@ import javax.inject.Inject
 
 
 class PostRepositoryImpl @Inject constructor(
-    private val localDataSource: PostDao,
+    private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
     ) : PostRepository {
-
-    private val localScope = CoroutineScope(Job() + Dispatchers.Default)
-
     private val onPostResponseCallback = object : Callback<MutableList<Post>> {
         override fun onResponse(
             call: Call<MutableList<Post>>,
@@ -37,16 +34,14 @@ class PostRepositoryImpl @Inject constructor(
 
     override fun updatePosts(): Flowable<List<Post>> {
         remoteDataSource.requestPosts().enqueue(onPostResponseCallback)
-        return localDataSource.getAll()
+        return localDataSource.getAllPosts()
     }
 
     override fun getPosts(): Flowable<List<Post>> {
-        return localDataSource.getAll()
+        return localDataSource.getAllPosts()
     }
 
     private fun updateLocalDatabase(new: Array<Post>) {
-        localScope.launch {
-            localDataSource.insertAll(*new)
-        }
+        localDataSource.insertAllPosts(*new)
     }
 }
