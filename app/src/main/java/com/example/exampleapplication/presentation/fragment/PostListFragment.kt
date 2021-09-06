@@ -49,6 +49,10 @@ class PostListFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = PostAdapter(viewModel.posts.value ?: ArrayList())
         binding.recyclerView.adapter = adapter
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.updatePosts()
+        }
+
         viewModel.loadPosts()
         viewModel.posts.observe(viewLifecycleOwner, {
             if (it == null || it.size == 0) {
@@ -58,21 +62,10 @@ class PostListFragment : Fragment() {
                 adapter.add(it as List<Post>)
             }
         })
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.update_options_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.optionUpdate -> {
-                adapter.clearDataSet()
-                viewModel.updatePosts()
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            binding.swipeRefresh.isRefreshing = it
+        })
     }
 
     private fun togglePostList(postListHasItems: Boolean) {
