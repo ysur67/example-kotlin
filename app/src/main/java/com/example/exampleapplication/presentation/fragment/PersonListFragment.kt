@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exampleapplication.ExampleApp
 import com.example.exampleapplication.databinding.FragmentPersonListBinding
 import com.example.exampleapplication.di.ViewModelFactory
@@ -40,6 +41,20 @@ class PersonListFragment : Fragment() {
     ): View {
         _binding = FragmentPersonListBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adapter = PersonAdapter(viewModel.persons.value ?: ArrayList())
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        viewModel.loadPersons()
+        viewModel.persons.observe(viewLifecycleOwner, {
+            if (it == null || it.size == 0) {
+                return@observe
+            }
+            adapter.add(it)
+        })
     }
 
     override fun onDestroyView() {
