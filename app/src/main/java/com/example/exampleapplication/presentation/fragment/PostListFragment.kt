@@ -51,7 +51,6 @@ class PostListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         viewModel.loadPosts()
         viewModel.posts.observe(viewLifecycleOwner, {
-            adapter.clearDataSet()
             if (it == null || it.size == 0) {
                 togglePostList(false)
             } else {
@@ -84,6 +83,11 @@ class PostListFragment : Fragment() {
             binding.recyclerView.isEnabled = false
             binding.postListEmpty.visibility = View.VISIBLE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

@@ -4,6 +4,7 @@ import com.example.exampleapplication.presentation.activity.MainActivity
 import com.example.exampleapplication.di.module.DataSourceModule
 import com.example.exampleapplication.di.module.RepositoryModule
 import com.example.exampleapplication.di.module.ViewModelModule
+import com.example.exampleapplication.presentation.fragment.PersonListFragment
 import com.example.exampleapplication.presentation.fragment.PostListFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -16,4 +17,5 @@ interface AppComponent {
 
     // Fragment
     fun inject(postListFragment: PostListFragment)
+    fun inject(personListFragment: PersonListFragment)
 }
