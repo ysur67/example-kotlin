@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/drawable/search_icon.xml" value="0.24583333333333332" />
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/layout-v28/post_list_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/layout/fragment_person_list.xml" value="0.25" />
@@ -10,6 +11,7 @@
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/layout/person_list_item.xml" value="0.33" />
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/layout/post_list_item.xml" value="0.33" />
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
+        <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/menu/search_menu.xml" value="0.33" />
         <entry key="..\:/Projects/Android/ExampleApplication/app/src/main/res/menu/update_options_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
