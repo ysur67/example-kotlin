@@ -3,9 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/postListFragment"
         android:icon="@drawable/post"
-        android:title="@string/posts_title" />
+        android:title="@string/posts_title"
+        android:orderInCategory="1"/>
     <item
+        android:id="@+id/personListFragment"
         android:icon="@drawable/person_outline"
-        android:title="@string/persons_title" />
+        android:title="@string/persons_title"
+        android:orderInCategory="2"/>
 </menu>
