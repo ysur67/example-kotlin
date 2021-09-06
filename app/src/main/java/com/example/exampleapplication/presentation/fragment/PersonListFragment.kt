@@ -11,7 +11,6 @@ import com.example.exampleapplication.ExampleApp
 import com.example.exampleapplication.databinding.FragmentPersonListBinding
 import com.example.exampleapplication.di.ViewModelFactory
 import com.example.exampleapplication.domain.implementation.PersonViewModel
-import com.example.exampleapplication.domain.implementation.PersonViewModel_Factory
 import com.example.exampleapplication.presentation.adapter.PersonAdapter
 import javax.inject.Inject
 
