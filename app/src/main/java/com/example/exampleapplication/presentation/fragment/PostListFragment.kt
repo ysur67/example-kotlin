@@ -32,7 +32,6 @@ class PostListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
         (activity?.application as ExampleApp).appComponent.inject(this)
     }
 
