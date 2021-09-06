@@ -41,6 +41,11 @@ class PostRepositoryImpl @Inject constructor(
         return localDataSource.getAllPosts()
     }
 
+    override fun searchPost(value: String): Flowable<List<Post>> {
+        val query = "%$value%"
+        return localDataSource.getPostsByQuery(query)
+    }
+
     private fun updateLocalDatabase(new: Array<Post>) {
         localDataSource.insertAllPosts(*new)
     }

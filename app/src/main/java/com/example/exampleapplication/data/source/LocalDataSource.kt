@@ -14,4 +14,6 @@ interface LocalDataSource {
 
     fun deletePerson(instance: Person)
     fun deletePost(instance: Post)
+
+    fun getPostsByQuery(query: String) : Flowable<List<Post>>
 }

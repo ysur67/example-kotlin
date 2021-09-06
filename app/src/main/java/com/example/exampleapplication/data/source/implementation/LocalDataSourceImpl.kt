@@ -54,4 +54,8 @@ class LocalDataSourceImpl @Inject constructor(
             postDao.delete(instance)
         }
     }
+
+    override fun getPostsByQuery(query: String): Flowable<List<Post>> {
+        return postDao.getPostByQuery(query)
+    }
 }

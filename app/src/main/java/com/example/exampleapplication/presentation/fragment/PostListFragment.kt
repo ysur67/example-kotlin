@@ -92,12 +92,12 @@ class PostListFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(value: String?): Boolean {
-
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-
+                query ?: return true
+                viewModel.searchPost(query)
                 return true
             }
         })

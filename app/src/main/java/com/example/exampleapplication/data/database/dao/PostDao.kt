@@ -15,4 +15,7 @@ interface PostDao {
 
     @Delete
     suspend fun delete(post: Post)
+
+    @Query("SELECT * FROM post WHERE title LIKE (:query) OR body LIKE (:query)")
+    fun getPostByQuery(query: String) : Flowable<List<Post>>
 }
