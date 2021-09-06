@@ -48,12 +48,18 @@ class PersonListFragment : Fragment() {
         adapter = PersonAdapter(viewModel.persons.value ?: ArrayList())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.updatePersons()
+        }
         viewModel.loadPersons()
         viewModel.persons.observe(viewLifecycleOwner, {
             if (it == null || it.size == 0) {
                 return@observe
             }
             adapter.add(it)
+        })
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            binding.swipeRefresh.isRefreshing = it
         })
     }
 
