@@ -51,7 +51,6 @@ class PostListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         viewModel.loadPosts()
         viewModel.posts.observe(viewLifecycleOwner, {
-            adapter.clearDataSet()
             if (it == null || it.size == 0) {
                 togglePostList(false)
             } else {
