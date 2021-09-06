@@ -7,4 +7,7 @@
     <string name="post_id">id</string>
     <string name="persons_title">Persons</string>
     <string name="posts_title">Posts</string>
+    <string name="person_name">Person name</string>
+    <string name="person_id">person_id</string>
+    <string name="person_email">Person email</string>
 </resources>
