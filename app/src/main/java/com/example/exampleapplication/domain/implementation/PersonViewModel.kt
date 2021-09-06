@@ -25,6 +25,7 @@ class PersonViewModel @Inject constructor(
         get() = _posts
 
     fun loadPersons() {
+        loading = true
         personRepository.getPersons()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -75,9 +76,11 @@ class PersonViewModel @Inject constructor(
 
     private fun updatePersonLiveData(new: List<Person>) {
         _persons.postValue(new as ArrayList<Person>)
+        loading = false
     }
 
     private fun updatePostLiveData(new: List<Post>) {
         _posts.postValue(new as ArrayList<Post>)
+        loading = false
     }
 }
