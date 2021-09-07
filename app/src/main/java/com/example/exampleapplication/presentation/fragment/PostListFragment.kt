@@ -1,12 +1,11 @@
 package com.example.exampleapplication.presentation.fragment
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.exampleapplication.ExampleApp
 import com.example.exampleapplication.R
 import com.example.exampleapplication.data.model.Post
@@ -40,6 +39,7 @@ class PostListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPostListBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -80,6 +80,27 @@ class PostListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.search_menu, menu)
+        val item = menu.findItem(R.id.bar_search)
+        val searchView = item.actionView as SearchView
+        searchView.isSubmitButtonEnabled = true
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(value: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                query ?: return true
+                viewModel.searchPost(query)
+                return true
+            }
+        })
     }
 
     companion object {

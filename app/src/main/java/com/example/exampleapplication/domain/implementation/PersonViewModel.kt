@@ -74,6 +74,24 @@ class PersonViewModel @Inject constructor(
             }
     }
 
+    fun searchPost(value: String) {
+        loading = true
+        postRepository.searchPost(value)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                clearDataSet()
+                updatePostLiveData(it)
+            }
+    }
+
+    private fun clearDataSet() {
+        _posts.postValue(ArrayList())
+    }
+
     private fun updatePersonLiveData(new: List<Person>) {
         _persons.postValue(new as ArrayList<Person>)
         loading = false
