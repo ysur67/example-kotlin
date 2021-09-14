@@ -56,7 +56,7 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getPostsByQuery(query: String): Flowable<List<Post>> {
+    override fun getPostsByQuery(query: String): Flowable<List<PostWithPerson>> {
         return postDao.getPostByQuery(query)
     }
 

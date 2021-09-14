@@ -42,7 +42,7 @@ class PostRepositoryImpl @Inject constructor(
         return localDataSource.getAllPosts()
     }
 
-    override fun searchPost(value: String): Flowable<List<Post>> {
+    override fun searchPost(value: String): Flowable<List<PostWithPerson>> {
         val query = "%$value%"
         return localDataSource.getPostsByQuery(query)
     }

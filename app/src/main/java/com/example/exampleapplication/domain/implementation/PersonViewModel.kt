@@ -89,7 +89,8 @@ class PersonViewModel @Inject constructor(
             }
             .subscribe{
                 clearDataSet()
-                updatePostLiveData(it)
+                _postsWithPerson.postValue(it as ArrayList<PostWithPerson>)
+                loading = false
             }
     }
 
