@@ -2,6 +2,7 @@ package com.example.exampleapplication.data.database.dao
 
 import androidx.room.*
 import com.example.exampleapplication.data.model.Post
+import com.example.exampleapplication.data.model.PostWithPerson
 import io.reactivex.rxjava3.core.Flowable
 
 
@@ -9,6 +10,9 @@ import io.reactivex.rxjava3.core.Flowable
 interface PostDao {
     @Query("SELECT * FROM post")
     fun getAll() : Flowable<List<Post>>
+
+    @Query("SELECT * FROM post")
+    fun getPostsWithPerson() : Flowable<List<PostWithPerson>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg post: Post)

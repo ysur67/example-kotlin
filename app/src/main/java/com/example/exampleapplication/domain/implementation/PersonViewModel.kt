@@ -3,6 +3,7 @@ package com.example.exampleapplication.domain.implementation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.exampleapplication.data.model.Post
+import com.example.exampleapplication.data.model.PostWithPerson
 import com.example.exampleapplication.data.model.person.Person
 import com.example.exampleapplication.data.repository.PersonRepository
 import com.example.exampleapplication.data.repository.PostRepository
@@ -23,6 +24,10 @@ class PersonViewModel @Inject constructor(
     private val _posts = MutableLiveData<ArrayList<Post>>(null)
     val posts: LiveData<ArrayList<Post>>
         get() = _posts
+
+    private val _postsWithPerson = MutableLiveData<ArrayList<PostWithPerson>>(null)
+    val postsWithPerson: LiveData<ArrayList<PostWithPerson>>
+        get() = _postsWithPerson
 
     fun loadPersons() {
         loading = true
@@ -85,6 +90,20 @@ class PersonViewModel @Inject constructor(
             .subscribe{
                 clearDataSet()
                 updatePostLiveData(it)
+            }
+    }
+
+    fun loadPostsWithPerson() {
+        loading = true
+        postRepository.getPostsWithPerson()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onErrorComplete{
+                throw it
+            }
+            .subscribe{
+                _postsWithPerson.postValue(it as ArrayList<PostWithPerson>)
+                loading = false
             }
     }
 

@@ -11,4 +11,5 @@
     <string name="person_id">person_id</string>
     <string name="person_email">Person email</string>
     <string name="search_title">Search</string>
+    <string name="author_name">Author name</string>
 </resources>

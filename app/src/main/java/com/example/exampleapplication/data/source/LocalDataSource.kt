@@ -1,6 +1,7 @@
 package com.example.exampleapplication.data.source
 
 import com.example.exampleapplication.data.model.Post
+import com.example.exampleapplication.data.model.PostWithPerson
 import com.example.exampleapplication.data.model.person.Person
 import io.reactivex.rxjava3.core.Flowable
 
@@ -16,4 +17,5 @@ interface LocalDataSource {
     fun deletePost(instance: Post)
 
     fun getPostsByQuery(query: String) : Flowable<List<Post>>
+    fun getPostWithPerson() : Flowable<List<PostWithPerson>>
 }

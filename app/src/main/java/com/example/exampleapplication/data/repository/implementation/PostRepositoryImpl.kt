@@ -2,6 +2,7 @@ package com.example.exampleapplication.data.repository.implementation
 
 import com.example.exampleapplication.data.database.dao.PostDao
 import com.example.exampleapplication.data.model.Post
+import com.example.exampleapplication.data.model.PostWithPerson
 import com.example.exampleapplication.data.source.RemoteDataSource
 import com.example.exampleapplication.data.repository.PostRepository
 import com.example.exampleapplication.data.source.LocalDataSource
@@ -44,6 +45,10 @@ class PostRepositoryImpl @Inject constructor(
     override fun searchPost(value: String): Flowable<List<Post>> {
         val query = "%$value%"
         return localDataSource.getPostsByQuery(query)
+    }
+
+    override fun getPostsWithPerson(): Flowable<List<PostWithPerson>> {
+        return localDataSource.getPostWithPerson()
     }
 
     private fun updateLocalDatabase(new: Array<Post>) {

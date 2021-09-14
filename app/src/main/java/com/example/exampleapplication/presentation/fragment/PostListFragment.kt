@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exampleapplication.ExampleApp
 import com.example.exampleapplication.R
 import com.example.exampleapplication.data.model.Post
+import com.example.exampleapplication.data.model.PostWithPerson
 import com.example.exampleapplication.databinding.FragmentPostListBinding
 import com.example.exampleapplication.di.ViewModelFactory
 import com.example.exampleapplication.domain.implementation.PersonViewModel
@@ -46,19 +47,19 @@ class PostListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = PostAdapter(viewModel.posts.value ?: ArrayList())
+        adapter = PostAdapter(viewModel.postsWithPerson.value ?: ArrayList())
         binding.recyclerView.adapter = adapter
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.updatePosts()
         }
 
-        viewModel.loadPosts()
-        viewModel.posts.observe(viewLifecycleOwner, {
+        viewModel.loadPostsWithPerson()
+        viewModel.postsWithPerson.observe(viewLifecycleOwner, {
             if (it == null || it.size == 0) {
                 togglePostList(false)
             } else {
                 togglePostList(true)
-                adapter.add(it as List<Post>)
+                adapter.add(it as List<PostWithPerson>)
             }
         })
 
